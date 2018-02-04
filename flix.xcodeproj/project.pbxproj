@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		447721F72026EF7400780947 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447721F62026EF7400780947 /* AppDelegate.swift */; };
-		447721F92026EF7400780947 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447721F82026EF7400780947 /* ViewController.swift */; };
 		447721FC2026EF7400780947 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 447721FA2026EF7400780947 /* Main.storyboard */; };
 		447721FE2026EF7400780947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 447721FD2026EF7400780947 /* Assets.xcassets */; };
 		447722012026EF7400780947 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 447721FF2026EF7400780947 /* LaunchScreen.storyboard */; };
 		4477220C2026EF7400780947 /* flixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4477220B2026EF7400780947 /* flixTests.swift */; };
 		447722172026EF7400780947 /* flixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447722162026EF7400780947 /* flixUITests.swift */; };
+		447722252026F76A00780947 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447722242026F76A00780947 /* NowPlayingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 /* Begin PBXFileReference section */
 		447721F32026EF7400780947 /* flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		447721F62026EF7400780947 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		447721F82026EF7400780947 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		447721FB2026EF7400780947 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		447721FD2026EF7400780947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		447722002026EF7400780947 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		447722122026EF7400780947 /* flixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = flixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		447722162026EF7400780947 /* flixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = flixUITests.swift; sourceTree = "<group>"; };
 		447722182026EF7400780947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		447722242026F76A00780947 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +97,8 @@
 		447721F52026EF7400780947 /* flix */ = {
 			isa = PBXGroup;
 			children = (
+				447722242026F76A00780947 /* NowPlayingViewController.swift */,
 				447721F62026EF7400780947 /* AppDelegate.swift */,
-				447721F82026EF7400780947 /* ViewController.swift */,
 				447721FA2026EF7400780947 /* Main.storyboard */,
 				447721FD2026EF7400780947 /* Assets.xcassets */,
 				447721FF2026EF7400780947 /* LaunchScreen.storyboard */,
@@ -259,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447721F92026EF7400780947 /* ViewController.swift in Sources */,
+				447722252026F76A00780947 /* NowPlayingViewController.swift in Sources */,
 				447721F72026EF7400780947 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
