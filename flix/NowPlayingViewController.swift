@@ -30,7 +30,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         activityIndicator.stopAnimating()
         tableView.rowHeight = 150
         
-        searchController = UISearchController(searchController: nil)
+        searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         
         
