@@ -30,6 +30,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         activityIndicator.stopAnimating()
         tableView.rowHeight = 150
         
+        filteredData = movies
+        
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         
@@ -45,12 +47,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
         //we will create the database of movies with just their
         //name for now, so we can use that in filtered search
-        for movie in movies {
+        /*for movie in movies {
             let title = movie["title"] as! String
             movieTitles.append(title);
-        }
-       filteredData = movies
-    
+        }*/
+       
     }
     
     
@@ -158,9 +159,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     func updateSearchResults(for searchController: UISearchController)
     {
         if let searchText = searchController.searchBar.text {
-            filteredData = searchText.isEmpty ? movies : movies.filter({(dataString: String) -> Bool in
-                return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+            filteredData = searchText.isEmpty ? movies : movies.filter({(movieDict: [String: Any]) -> Bool in
+                return (movieDict["title"] as? String)?.range(of: searchText, options: .caseInsensitive) != nil
             })
+            tableView.reloadData()
         }
     }
 
