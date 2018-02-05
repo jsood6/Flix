@@ -9,15 +9,22 @@
 import UIKit
 import AlamofireImage
 
-class NowPlayingViewController: UIViewController, UITableViewDataSource{
+class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate{
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    
+    var filteredData: [[String:Any]] = []
+    var movieTitles: [String]!
     var movies: [[String:Any]] = []
     var refreshControl: UIRefreshControl!
+    var isSearching = false
     
     override func viewDidLoad() {
+        activityIndicator.startAnimating()
         super.viewDidLoad()
+        activityIndicator.stopAnimating()
         tableView.rowHeight = 150
         
         refreshControl = UIRefreshControl()
@@ -27,12 +34,22 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource{
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
         fetchMovies()
+        
+        
+        //we will create the database of movies with just their
+        //name for now, so we can use that in filtered search
+        for movie in movies {
+            let title = movie["title"] as! String
+            movieTitles.append(title);
+        }
+       filteredData = movies
+    
     }
+    
     
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl)
     {
         fetchMovies()
-        
     }
     
     func fetchMovies()
@@ -49,12 +66,35 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource{
             //This will run when the network request returns
             if let error = error {
                 print(error.localizedDescription)
+                //based on error, display corresponding message
+                
+                //create a alert view controller
+                let alertController = UIAlertController(title: "Cannot load movies", message: "Please check your wifi connection", preferredStyle: .alert)
+                
+                //create an OK action
+                let OKAction = UIAlertAction(title: "OK", style: .default) {(action) in
+                    //handle response here
+                }
+                
+                // add the OK action to the alert controller
+                alertController.addAction(OKAction)
+                
+                /*self.present(alertController, animated: true)
+                {
+                    //add code for what happens after alert controller has finished presenting
+                }*/
+                DispatchQueue.main.async {
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
             else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
                 print(dataDictionary)
                 let movies = dataDictionary["results"] as! [[String:Any]]
                 self.movies = movies
+                
+              /*  self.searchBarFunc(_searchBar: self.searchBar, textDidChange: self.searchBar.text!)*/
+                
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 
@@ -67,11 +107,21 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource{
     //how many cells
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //count is the number of movies in our dictionary
-        return movies.count
+        
+        /*if(isSearching == true)
+        {
+            return filteredData.count
+        }
+        else
+        {*/
+            //return movies.count
+        return filteredData.count
+        //}
     }
     
     //what the cell is going to be
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
         let movie = movies[indexPath.row]
@@ -88,6 +138,23 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource{
         
         
         return cell
+    }
+    
+    //search bar related code
+    /*func searchBar(_searchBar: UISearchBar, textDidChange searchText: String){
+        filteredData = searchText.isEmpty ? movieTitles: movieTitles.filter {(item: String) -> Bool in
+            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        tableView.reloadData()
+    }*/
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController)
+    {
+        if let searchText = searchController.searchBar.text {
+            filteredData = searchText.isEmpty ? movies : movies.filter({(dataString: String) -> Bool in
+                return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
