@@ -9,13 +9,16 @@
 import UIKit
 import AlamofireImage
 
-class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate{
+class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchResultsUpdating{
+    
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     var filteredData: [[String:Any]] = []
+    var searchController: UISearchController!
     var movieTitles: [String]!
     var movies: [[String:Any]] = []
     var refreshControl: UIRefreshControl!
@@ -26,6 +29,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         super.viewDidLoad()
         activityIndicator.stopAnimating()
         tableView.rowHeight = 150
+        
+        searchController = UISearchController(searchController: nil)
+        searchController.searchResultsUpdater = self
+        
         
         refreshControl = UIRefreshControl()
         //action is what method is called and start enums by .
@@ -148,7 +155,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         tableView.reloadData()
     }*/
     
-    func updateSearchResultsForSearchController(searchController: UISearchController)
+    func updateSearchResults(for searchController: UISearchController)
     {
         if let searchText = searchController.searchBar.text {
             filteredData = searchText.isEmpty ? movies : movies.filter({(dataString: String) -> Bool in
