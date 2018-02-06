@@ -34,6 +34,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         filteredData = movies
         
         searchBar.delegate = self
+        searchBar.placeholder = "enter movie name"
         
         
         refreshControl = UIRefreshControl()
@@ -128,7 +129,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
         if(isSearching == true)
         {
-            searchBarFunc(_searchBar: searchBar, textDidChange: searchBar.text!)
+            searchBarTextDidBeginEditing(searchBar)
             isSearching = false
         }
         else
@@ -164,8 +165,14 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isSearching = true;
+        searchBarTextDidEndEditing(searchBar)
         
     }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBarFunc(_searchBar: searchBar, textDidChange: searchBar.text!)
+    }
+    
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         tableView.reloadData()
