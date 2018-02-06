@@ -12,7 +12,9 @@ import AlamofireImage
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate{
     
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    //@IBOutlet weak var searchbar: UISearchBar!
+    
+    //@IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -28,13 +30,13 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     override func viewDidLoad() {
         activityIndicator.startAnimating()
         super.viewDidLoad()
-        activityIndicator.stopAnimating()
+        
         tableView.rowHeight = 150
         
         filteredData = movies
         
-        searchBar.delegate = self
-        searchBar.placeholder = "enter movie name"
+        /*searchbar.delegate = self
+        searchbar.placeholder = "enter movie name"*/
         
         
         refreshControl = UIRefreshControl()
@@ -44,6 +46,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
         fetchMovies()
+        activityIndicator.stopAnimating()
+        
         
         
         //we will create the database of movies with just their
@@ -98,6 +102,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 print(dataDictionary)
                 let movies = dataDictionary["results"] as! [[String:Any]]
                 self.movies = movies
+                self.filteredData = movies
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 
@@ -127,17 +132,23 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     //what the cell is going to be
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if(isSearching == true)
+       /* if(isSearching == true)
         {
-            searchBarTextDidBeginEditing(searchBar)
+            //searchBarTextDidBeginEditing(searchbar)
+            searchBar(searchbar, textDidChange: searchbar.text!)
             isSearching = false
         }
         else
         {
             filteredData = movies
         }
-        
+        */
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
+        
+        if(filteredData.count == 0)
+        {
+            filteredData = movies
+        }
         
         let movie = filteredData[indexPath.row]
         let title = movie["title"] as! String
@@ -155,28 +166,35 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         return cell
     }
     
-    //search bar related code
-    func searchBarFunc(_searchBar: UISearchBar, textDidChange searchText: String){
+    /*//search bar related code
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //print("FUNCTION WORKING!!!")
         filteredData = searchText.isEmpty ? movies: movies.filter {(movie: [String:Any]) -> Bool in
             return title?.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
+        //print(filteredData)
+        
         tableView.reloadData()
+    }*/
+    
+    /*func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = true;
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearching = true;
-        searchBarTextDidEndEditing(searchBar)
+        //searchBarTextDidEndEditing(searchBar)
+        //searchBar(searchbar, textDidChange: searchbar.text!)
         
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBarFunc(_searchBar: searchBar, textDidChange: searchBar.text!)
+        
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         tableView.reloadData()
-    }
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
