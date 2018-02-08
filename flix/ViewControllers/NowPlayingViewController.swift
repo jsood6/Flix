@@ -11,33 +11,19 @@ import AlamofireImage
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate{
     
-    
-    //@IBOutlet weak var searchbar: UISearchBar!
-    
-    //@IBOutlet weak var searchBar: UISearchBar!
-    
+  
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
-    var filteredData: [[String:Any]] = []
     var searchController: UISearchController!
-    var movieTitles: [String]!
     var movies: [[String:Any]] = []
     var refreshControl: UIRefreshControl!
-    var isSearching = false
     
     override func viewDidLoad() {
         activityIndicator.startAnimating()
         super.viewDidLoad()
         
         tableView.rowHeight = 150
-        
-        filteredData = movies
-        
-        /*searchbar.delegate = self
-        searchbar.placeholder = "enter movie name"*/
-        
         
         refreshControl = UIRefreshControl()
         //action is what method is called and start enums by .
@@ -48,15 +34,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         fetchMovies()
         activityIndicator.stopAnimating()
         
-        
-        
-        //we will create the database of movies with just their
-        //name for now, so we can use that in filtered search
-        /*for movie in movies {
-            let title = movie["title"] as! String
-            movieTitles.append(title);
-        }*/
-       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = self.tableView.indexPathForSelectedRow{
+            self.tableView.deselectRow(at: index, animated: true)
+        }
     }
     
     
@@ -102,7 +85,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 print(dataDictionary)
                 let movies = dataDictionary["results"] as! [[String:Any]]
                 self.movies = movies
-                self.filteredData = movies
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 
@@ -116,41 +98,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //count is the number of movies in our dictionary
         
-       
-            //return movies.count
-        if(filteredData.count != 0)
-        {
-            return filteredData.count
-        }
-        else
-        {
             return movies.count
-        }
         
     }
     
     //what the cell is going to be
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       /* if(isSearching == true)
-        {
-            //searchBarTextDidBeginEditing(searchbar)
-            searchBar(searchbar, textDidChange: searchbar.text!)
-            isSearching = false
-        }
-        else
-        {
-            filteredData = movies
-        }
-        */
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        if(filteredData.count == 0)
-        {
-            filteredData = movies
-        }
-        
-        let movie = filteredData[indexPath.row]
+        let movie = movies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         cell.titleLabel.text = title
@@ -162,39 +119,18 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         let posterURL = URL(string: baseURLString + posterPathString)!
         cell.posterImage.af_setImage(withURL: posterURL)
         
-        
+        tableView.deselectRow(at: indexPath, animated: true)
         return cell
     }
     
-    /*//search bar related code
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //print("FUNCTION WORKING!!!")
-        filteredData = searchText.isEmpty ? movies: movies.filter {(movie: [String:Any]) -> Bool in
-            return title?.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell){
+            let movie = movies[indexPath?.row]
+            //let detailViewController = seque.destination as!
         }
-        //print(filteredData)
-        
-        tableView.reloadData()
-    }*/
-    
-    /*func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = true;
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        //searchBarTextDidEndEditing(searchBar)
-        //searchBar(searchbar, textDidChange: searchbar.text!)
-        
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
-    }
-    
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        tableView.reloadData()
-    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

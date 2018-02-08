@@ -62,6 +62,7 @@
                                             <outlet property="overviewLabel" destination="9gv-oR-6tj" id="KND-na-51h"/>
                                             <outlet property="posterImage" destination="xiG-93-aPc" id="Z4d-lk-9bZ"/>
                                             <outlet property="titleLabel" destination="0xz-gX-6nF" id="WjM-BO-y7b"/>
+                                            <segue destination="2vC-su-fuV" kind="show" id="kS7-Gi-bgG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -80,6 +81,59 @@
             </objects>
             <point key="canvasLocation" x="429.375" y="59.154929577464792"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="pap-X7-OI5">
+            <objects>
+                <viewController id="2vC-su-fuV" customClass="DetailViewController" customModule="flix" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3vK-vm-78f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kun-s2-PzO">
+                                <rect key="frame" x="0.0" y="64" width="320" height="195"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yff-XG-29W">
+                                <rect key="frame" x="32" y="188" width="92" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wonder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-mt-bcT">
+                                <rect key="frame" x="139" y="267" width="151" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofl-jj-Jc7">
+                                <rect key="frame" x="139" y="296" width="151" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14r-Jp-if9">
+                                <rect key="frame" x="32" y="341" width="272" height="207"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ghj-LJ-YDq"/>
+                    </view>
+                    <connections>
+                        <outlet property="backDropImageView" destination="kun-s2-PzO" id="Ccv-Fh-KjQ"/>
+                        <outlet property="overViewLabel" destination="14r-Jp-if9" id="Tmf-u5-bab"/>
+                        <outlet property="posterImageView" destination="yff-XG-29W" id="SnB-kt-f11"/>
+                        <outlet property="releaseDateLabel" destination="ofl-jj-Jc7" id="qWb-e3-xa5"/>
+                        <outlet property="titleLabel" destination="r8b-mt-bcT" id="360-Ci-91a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D8X-z5-DE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1203.75" y="64.436619718309856"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="nJ7-ce-lhy">
             <objects>
@@ -96,7 +150,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NPs-bt-PaX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="31.875" y="59.154929577464792"/>
+            <point key="canvasLocation" x="-458" y="59"/>
         </scene>
     </scenes>
 </document>
