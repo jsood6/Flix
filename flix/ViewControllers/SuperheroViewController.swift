@@ -95,6 +95,17 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource{
         //ALWAYS NEED TO CALL THIS FUNCTION! this will actually start the task
         task.resume()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UICollectionViewCell
+        if let indexPath = collectionView.indexPath(for: cell){
+            let movie = movies[indexPath.row]
+            let posterDetailViewController = segue.destination as! PosterDetailViewController
+            posterDetailViewController.movie = movie
+        }
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
