@@ -105,7 +105,6 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource{
         }
     }
     
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
