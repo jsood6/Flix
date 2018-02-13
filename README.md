@@ -102,10 +102,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://media.giphy.com/media/xUOwGdkZtkqOtSbDz2/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
 <a href="https://giphy.com/gifs/xUOwGdkZtkqOtSbDz2"><img src="https://media.giphy.com/media/xUOwGdkZtkqOtSbDz2/giphy.gif" title="giphy"/></a>
-
+ *gif is also in a file in this repo!
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
