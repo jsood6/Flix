@@ -30,12 +30,12 @@ class PosterDetailViewController: UIViewController {
             movieTitleLabel.text = movie["title"] as? String
             releaseDateLabel.text = movie["release_date"] as? String
             overviewLabel.text = movie["overview"] as? String
-            if(movie["vote_average"] == nil)
+            if let vote_average = movie["vote_average"] as? Double
             {
-                movieRatings.text = "no ratings"
+                movieRatings.text = String(vote_average)
             }
             else{
-            movieRatings.text = movie["vote_average"] as? String
+            movieRatings.text = "No Rating"
             }
             print(movieRatings.text)
             print(movie)

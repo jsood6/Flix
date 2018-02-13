@@ -171,7 +171,7 @@
             </objects>
             <point key="canvasLocation" x="-759.375" y="58.098591549295776"/>
         </scene>
-        <!--Movies-->
+        <!--Movie Ratings-->
         <scene sceneID="L4G-fv-ltn">
             <objects>
                 <viewController id="xZD-2S-1of" customClass="SuperheroViewController" customModule="flix" customModuleProvider="target" sceneMemberID="viewController">
@@ -214,7 +214,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <viewLayoutGuide key="safeArea" id="s7p-X4-nAg"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" id="oNA-LQ-RBi"/>
+                    <navigationItem key="navigationItem" title="Movie Ratings" id="oNA-LQ-RBi"/>
                     <connections>
                         <outlet property="collectionView" destination="h34-ox-SVb" id="Ppj-6O-xAV"/>
                     </connections>
@@ -293,11 +293,11 @@
             </objects>
             <point key="canvasLocation" x="858.75" y="825"/>
         </scene>
-        <!--Movies-->
+        <!--Movie Ratings-->
         <scene sceneID="He6-8n-wBB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U1U-5a-zEQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Movies" image="projector_tabbar_item" id="juL-PJ-6FN"/>
+                    <tabBarItem key="tabBarItem" title="Movie Ratings" image="projector_tabbar_item" id="juL-PJ-6FN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TYh-2N-wT3">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
