@@ -14,6 +14,15 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var posterImage: UIImageView!
     
+    var movie: Movie! {
+        didSet {
+            titleLabel.text = movie["title"] as? String
+            overviewLabel.text = movie["overview"] as? String
+            posterImage.text = movie["overview"] as? String
+        }
+    }
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

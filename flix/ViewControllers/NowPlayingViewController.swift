@@ -16,7 +16,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var searchController: UISearchController!
-    var movies: [[String:Any]] = []
+//    var movies: [[String:Any]] = []
+    var movies: [Movie] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -31,8 +32,15 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
-        fetchMovies()
+        
         activityIndicator.stopAnimating()
+//        fetchMovies()
+        MovieApiManager().nowPlayingMovies { (movies: [Movie], error: Error?) in
+            if let movies = movies {
+                self.movies = movies
+                self.tableView.reloadData()
+            }
+        }
         
     }
     
@@ -83,8 +91,15 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
             else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
                 print(dataDictionary)
-                let movies = dataDictionary["results"] as! [[String:Any]]
-                self.movies = movies
+                
+                let movieDictionaries = dataDictionary["results"] as! [[String:Any]]
+                self.movies = []
+                
+                for dictionary in movieDictionaries {
+                    let movie = Movie(dictionary: dictionary)
+                    self.movies.append(movie)
+                }
+                
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 
@@ -102,31 +117,44 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
     }
     
-    //what the cell is going to be
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let movie = movies[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
+        cell.movie = movies[indexPath.row]
         
-        let posterPathString = movie["poster_path"] as! String
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        
-        let posterURL = URL(string: baseURLString + posterPathString)!
-        cell.posterImage.af_setImage(withURL: posterURL)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
         return cell
     }
+    
+    
+    //what the cell is going to be
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//
+//
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
+//        let movie = Movie(dictionary: movies[indexPath.row])
+//
+//        let title = movie["title"] as! String
+//        let overview = movie["overview"] as! String
+//        cell.titleLabel.text = title
+//        cell.overviewLabel.text = overview
+//
+//        let posterPathString = movie["poster_path"] as! String
+//        let baseURLString = "https://image.tmdb.org/t/p/w500"
+//
+//        let posterURL = URL(string: baseURLString + posterPathString)!
+//        cell.posterImage.af_setImage(withURL: posterURL)
+//
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        return cell
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
         if let indexPath = tableView.indexPath(for: cell){
-            let movie = movies[indexPath.row]
+            let movie = Movie(dictionary: movies[indexPath.row])
+//            let movie = movies[indexPath.row]
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.movie = movie 
         }
