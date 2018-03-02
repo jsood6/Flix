@@ -16,9 +16,9 @@ class MovieCell: UITableViewCell {
     
     var movie: Movie! {
         didSet {
-            titleLabel.text = movie["title"] as? String
-            overviewLabel.text = movie["overview"] as? String
-            posterImage.text = movie["overview"] as? String
+            titleLabel.text = movie.title
+            overviewLabel.text = movie.overview
+            posterImage.af_setImage(withURL: movie.posterUrl!)
         }
     }
     

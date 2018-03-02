@@ -35,7 +35,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
         activityIndicator.stopAnimating()
 //        fetchMovies()
-        MovieApiManager().nowPlayingMovies { (movies: [Movie], error: Error?) in
+        MovieApiManager().popularMovies{ (movies: [Movie]?, error: Error?) in
             if let movies = movies {
                 self.movies = movies
                 self.tableView.reloadData()
@@ -153,10 +153,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
         if let indexPath = tableView.indexPath(for: cell){
-            let movie = Movie(dictionary: movies[indexPath.row])
-//            let movie = movies[indexPath.row]
+//            let movie = Movie(dictionary: movies[indexPath.row] )
+            let movie = movies[indexPath.row]
             let detailViewController = segue.destination as! DetailViewController
-            detailViewController.movie = movie 
+            detailViewController.movie = movie
         }
     }
     
